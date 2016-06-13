@@ -105,18 +105,16 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Dwh-md-w6g">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Speichern" id="fsf-s3-wpC">
-                                <connections>
-                                    <segue destination="tPM-aM-j6z" kind="unwind" unwindAction="unwindToUserList:" id="tvC-rs-WXJ"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="add" id="Bzz-ny-QSW">
-                                <connections>
-                                    <segue destination="ufn-Hl-8N3" kind="presentation" identifier="AddItem" id="3jB-xB-Qcw"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="previous" id="fsf-s3-wpC">
+                            <connections>
+                                <segue destination="tPM-aM-j6z" kind="unwind" unwindAction="unwindToUserList:" id="tvC-rs-WXJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Bzz-ny-QSW">
+                            <connections>
+                                <segue destination="ufn-Hl-8N3" kind="presentation" identifier="AddItem" id="3jB-xB-Qcw"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="saveButton" destination="fsf-s3-wpC" id="kUl-9X-sfB"/>
@@ -1866,13 +1864,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Neu Gericht" id="l68-fg-pFa">
-                        <barButtonItem key="leftBarButtonItem" title="Abbrechen" id="hdz-yt-5ri">
+                        <barButtonItem key="leftBarButtonItem" image="previous" id="cJh-Mr-mce">
                             <connections>
-                                <action selector="cancel:" destination="BYZ-38-t0r" id="Y3Z-xi-4N9"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Speichern" id="cJh-Mr-mce">
-                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="6Bb-Ge-u55"/>
                                 <segue destination="34i-M6-9St" kind="unwind" unwindAction="unwindToMealList:" id="p1A-ao-YxJ"/>
                             </connections>
                         </barButtonItem>
@@ -2190,6 +2184,7 @@
         <image name="defaultPhoto" width="540" height="540"/>
         <image name="emptyStar" width="22" height="22"/>
         <image name="filledStar" width="22" height="22"/>
+        <image name="previous" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="on1-tD-PDA"/>

@@ -12,6 +12,7 @@
 		350024AD1CB702AF00C5C62E /* RRAddTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350024AC1CB702AF00C5C62E /* RRAddTagView.swift */; };
 		350024AF1CB702B400C5C62E /* RRTagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 350024AE1CB702B400C5C62E /* RRTagController.swift */; };
 		353C15021C9E878E007FFF4E /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353C15011C9E878E007FFF4E /* FloatRatingView.swift */; };
+		35A656D91D101BE90077BA73 /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35A656D81D101BE90077BA73 /* RatingViewController.swift */; };
 		35BDD4A51D099BF8000A5C90 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 35BDD4A31D099BF8000A5C90 /* UINavigationBar+Awesome.m */; };
 		35C80C971CEF071C0020131C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C80C941CEF071C0020131C /* User.swift */; };
 		35C80C981CEF071C0020131C /* UserListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35C80C951CEF071C0020131C /* UserListTableViewController.swift */; };
@@ -49,6 +50,7 @@
 		350024AC1CB702AF00C5C62E /* RRAddTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRAddTagView.swift; sourceTree = "<group>"; };
 		350024AE1CB702B400C5C62E /* RRTagController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RRTagController.swift; sourceTree = "<group>"; };
 		353C15011C9E878E007FFF4E /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		35A656D81D101BE90077BA73 /* RatingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 		35BDD4A21D099BF8000A5C90 /* Eatery 2D-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Eatery 2D-Bridging-Header.h"; sourceTree = "<group>"; };
 		35BDD4A31D099BF8000A5C90 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		35BDD4A41D099BF8000A5C90 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				CA1902DF1B10E523000271C4 /* AppDelegate.swift */,
 				CA1902E31B10E523000271C4 /* Main.storyboard */,
 				CA96F92A1B1144F7000CC7F8 /* Assets.xcassets */,
+				35A656D81D101BE90077BA73 /* RatingViewController.swift */,
 				35BDD4A01D0978DD000A5C90 /* ImageRatingView */,
 				35BDD49F1D0978AD000A5C90 /* MealViewController */,
 				35BDD49E1D097899000A5C90 /* MealtableViewController */,
@@ -456,6 +459,7 @@
 				CA1902E01B10E523000271C4 /* AppDelegate.swift in Sources */,
 				CA5D06031B162F2300095F0F /* MealTableViewController.swift in Sources */,
 				35D446F61CC2C19F00649B5B /* CircleView.swift in Sources */,
+				35A656D91D101BE90077BA73 /* RatingViewController.swift in Sources */,
 				CA5D06011B162F2300095F0F /* MealTableViewCell.swift in Sources */,
 				35C80C971CEF071C0020131C /* User.swift in Sources */,
 			);

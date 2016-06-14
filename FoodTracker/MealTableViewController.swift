@@ -39,10 +39,9 @@ class MealTableViewController: UITableViewController {
         
         cell.nameLabel.text = meal.name
         cell.photoImageView.image = meal.photo
-        cell.floatRatingView.rating = (meal.tasteRating + meal.healthRating) / 2 * 5
-        print(meal.tasteRating)
-        cell.floatRatingView.editable = false
-        cell.rating.text = String(format: "%.1f", cell.floatRatingView.rating)
+//        cell.floatRatingView.rating = (meal.tasteRating + meal.healthRating) / 2 * 5
+//        cell.floatRatingView.editable = false
+//        cell.rating.text = String(format: "%.1f", cell.floatRatingView.rating)
         return cell
     }
     
@@ -94,7 +93,8 @@ class MealTableViewController: UITableViewController {
                 meal.elapsedRatingTime = elapsedTime
                 // updating existing meal
                 user!.meals[selectedIndexPath.row] = meal
-                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+//                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+                tableView.reloadData()
                 // reset navigation bar to transparent
                 self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor.clearColor().colorWithAlphaComponent(0))
                 navigationController!.navigationBar.tintColor = UIColor.whiteColor()

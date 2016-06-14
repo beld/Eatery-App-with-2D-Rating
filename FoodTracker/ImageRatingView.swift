@@ -47,12 +47,7 @@ class ImageRatingView: UIImageView {
         label.textColor = UIColor.whiteColor()
         label.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.5)
         addSubview(label)
-        
-        vertiLine.moveToPoint(CGPoint(x: startPoint.x, y: movingPointView.center.y))
-        vertiLine.addLineToPoint(CGPoint(x: endPoint.x, y: movingPointView.center.y))
-        horiLine.moveToPoint(CGPoint(x: movingPointView.center.x, y: endPoint.y))
-        horiLine.addLineToPoint(CGPoint(x: movingPointView.center.x, y: startPoint.y))
-        
+
         vertiShapeLayer.path = vertiLine.CGPath
         vertiShapeLayer.strokeColor = UIColor(white: 1, alpha: 0.5).CGColor
         vertiShapeLayer.fillColor = nil

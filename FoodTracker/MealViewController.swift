@@ -2,7 +2,7 @@ import UIKit
 import AMTagListView
 import SCLAlertView
 
-class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Delegate {
     // MARK: Properties
     
     @IBOutlet weak var descriptionTextView: UITextView!
@@ -10,9 +10,6 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var tagListView: AMTagListView!
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var imageRatingView: ImageRatingView!
-    @IBOutlet weak var vertiLabel: UILabel!
     @IBOutlet weak var rateHealthTasteButton: UIButton!
     @IBOutlet weak var rateFatCarbButton: UIButton!
     @IBOutlet weak var rateSugarVitaminButton: UIButton!
@@ -41,116 +38,13 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBOutlet weak var energyDensityLabel: UILabel!
     
     var meal: Meal?
-    var horiRating: CGFloat = 0.0
-    var vertiRating: CGFloat = 0.0
-    var horiLabel: UILabel!
-    
-    @IBAction func rateHealthTasteButtion(sender: AnyObject) {
-        horiLabel.text = "hoch          Gesundheit        niedrig"
-        vertiLabel.text = "niedrig          Geschmack         hoch"
-        if rateHealthTasteButton.currentTitle == "Bewerte den Geschmack und Gesundheit" {
-            rateHealthTasteButton.setTitle("Klicken Sie einfach", forState: .Normal)
-        } else {
-            initCicle(healthCircle)
-            (horiRating, vertiRating) = imageRatingView.getRatingScale()
-            addCircleView(healthCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: horiRating)
-            healthLabel.text = String(format: ("%d%%"), lroundf(Float(horiRating) * 100))
-            healthLabel.layer.zPosition = 1
-            
-            initCicle(tasteCircle)
-            addCircleView(tasteCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: vertiRating)
-            tasteLabel.text = String(format: ("%d%%"), lroundf(Float(vertiRating) * 100))
-            tasteLabel.layer.zPosition = 1
-            
-            rateHealthTasteButton.setTitle("Bewerte den Geschmack und Gesundheit", forState: .Normal)
-            meal!.healthRating = Float(horiRating)
-            meal!.tasteRating = Float(vertiRating)
-        }
-    }
-    
-    @IBAction func rateFatCarbButton(sender: AnyObject) {
-        horiLabel.text = "hoch          Fett          niedrig"
-        vertiLabel.text = "niedrig      Kohlenhydrate         hoch"
-        if rateFatCarbButton.currentTitle == "Bewerte den Fett und Kohlenhydrat" {
-            rateFatCarbButton.setTitle("Klicken Sie einfach", forState: .Normal)
-        } else {
-            initCicle(fatCircle)
-            (horiRating, vertiRating) = imageRatingView.getRatingScale()
-            addCircleView(fatCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: horiRating)
-            fatLabel.text = String(format: ("%d%%"), lroundf(Float(horiRating) * 100))
-            fatLabel.layer.zPosition = 1
-            initCicle(carbCircle)
-            addCircleView(carbCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: vertiRating)
-            carbLabel.text = String(format: ("%d%%"), lroundf(Float(vertiRating) * 100))
-            carbLabel.layer.zPosition = 1
-            rateFatCarbButton.setTitle("Bewerte den Fett und Kohlenhydrat", forState: .Normal)
-            meal!.fatRating = Float(horiRating)
-            meal!.carbRating = Float(vertiRating)
-        }
-    }
-    
-    @IBAction func rateSugarVitaminButton(sender: AnyObject) {
-        horiLabel.text = "hoch          Zucker        niedrig"
-        vertiLabel.text = "niedrig          Vitamine          hoch"
-        if rateSugarVitaminButton.currentTitle == "Bewerte den Zucker und Vitamine" {
-            rateSugarVitaminButton.setTitle("Klicken Sie einfach", forState: .Normal)
-        } else {
-            initCicle(sugarCircle)
-            (horiRating, vertiRating) = imageRatingView.getRatingScale()
-            addCircleView(sugarCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: horiRating)
-            sugarLabel.text = String(format: ("%d%%"), lroundf(Float(horiRating) * 100))
-            sugarLabel.layer.zPosition = 1
-            initCicle(vitaminCircle)
-            addCircleView(vitaminCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: vertiRating)
-            vitaminLabel.text = String(format: ("%d%%"), lroundf(Float(vertiRating) * 100))
-            vitaminLabel.layer.zPosition = 1
-            rateSugarVitaminButton.setTitle("Bewerte den Zucker und Vitamine", forState: .Normal)
-            meal!.sugarRating = Float(horiRating)
-            meal!.vitaminRating = Float(vertiRating)
-        }
-    }
-    @IBAction func rateCaloryEnergyButton(sender: AnyObject) {
-        horiLabel.text = "hoch          Kalorien          niedrig"
-        vertiLabel.text = "niedrig      Energiedichte         hoch"
-        if rateCaloryEnergyButton.currentTitle == "Bewerte den Kalorien und Energiedichte" {
-            rateCaloryEnergyButton.setTitle("Klicken Sie einfach", forState: .Normal)
-        } else {
-            initCicle(caloryCircle)
-            (horiRating, vertiRating) = imageRatingView.getRatingScale()
-            addCircleView(caloryCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: horiRating)
-            caloryLabel.text = String(format: ("%d%%"), lroundf(Float(horiRating) * 100))
-            caloryLabel.layer.zPosition = 1
-            initCicle(energyDensityCircle)
-            addCircleView(energyDensityCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: vertiRating)
-            energyDensityLabel.text = String(format: ("%d%%"), lroundf(Float(vertiRating) * 100))
-            energyDensityLabel.layer.zPosition = 1
-            rateCaloryEnergyButton.setTitle("Bewerte den Kalorien und Energiedichte", forState: .Normal)
-            meal!.caloryRating = Float(horiRating)
-            meal!.energyDensityRating = Float(vertiRating)
-        }
-    }
- 
-    @IBAction func rateDifficultyTimeButton(sender: AnyObject) {
-        horiLabel.text = "hoch      Schwierigkeit         niedrig"
-        vertiLabel.text = "niedrig          Zeit            hoch"
-        if rateDifficultyTimeButton.currentTitle == "Bewerte die Schwierigkeit und die Zeit" {
-            rateDifficultyTimeButton.setTitle("Klicken Sie einfach", forState: .Normal)
-        } else {
-            initCicle(difficultyCircle)
-            (horiRating, vertiRating) = imageRatingView.getRatingScale()
-            addCircleView(difficultyCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: horiRating)
-            difficultyLabel.text = String(format: ("%d%%"), lroundf(Float(horiRating) * 100))
-            difficultyLabel.layer.zPosition = 1
-            initCicle(timeCircle)
-            addCircleView(timeCircle, isForeground: true, duration: 1.5, fromValue: 0.0, toValue: vertiRating)
-            timeLabel.text = String(format: ("%d%%"), lroundf(Float(vertiRating) * 100))
-            timeLabel.layer.zPosition = 1
-            rateDifficultyTimeButton.setTitle("Bewerte die Schwierigkeit und die Zeit", forState: .Normal)
-            meal!.difficultyRating = Float(horiRating)
-            meal!.timeRating = Float(vertiRating)
-        }
-    }
-    
+    let ratingContents = ["rateTasteHealth", "rateFatCarb", "rateSugarVitamin", "rateCaloryEnergy", "rateDifficultyTime"]
+    var currentVertiRatingValue: Float!
+    var currentHoriRatingValue: Float!
+    var currentRatingContent: String = ""
+    var vertiLabel: String = ""
+    var horiLabel: String = ""
+    var currentTitle: String = ""
     
     @IBAction func addTag(sender: AnyObject) {
         let tag = ["delicious", "healthy", "easy", "unhealthy"]
@@ -167,23 +61,12 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.lt_setBackgroundColor(UIColor(red: 1/255.0, green: 131/255.0, blue: 209/255.0, alpha: 1))
-        
+        navigationController?.navigationBar.lt_setBackgroundColor(UIColor(red: 1/255.0, green: 131/255.0, blue: 209/255.0, alpha: 1))
         navigationController!.navigationBar.tintColor = UIColor.whiteColor()
         navigationController!.navigationBar.titleTextAttributes =
-            ([NSFontAttributeName: UIFont(name: "ChalkboardSE-Bold", size: 15)!,
+            ([NSFontAttributeName: UIFont(name: "ChalkboardSE-Bold", size: 17)!,
                 NSForegroundColorAttributeName: UIColor.whiteColor()])
         
-        horiLabel = UILabel(frame: CGRectMake(0, 0, 320, 21))
-        horiLabel.textAlignment = NSTextAlignment.Center
-        horiLabel.font = UIFont(name: "ChalkboardSE-regular", size: 18)
-        horiLabel.textColor = UIColor.darkGrayColor()
-        vertiLabel.textColor = UIColor.darkGrayColor()
-        self.view.addSubview(horiLabel)
-        horiLabel.layer.anchorPoint = CGPointMake(0.0, 0.0)
-        horiLabel.transform = CGAffineTransformMakeRotation( CGFloat(M_PI) / 2 )
-        horiLabel.frame = CGRectMake(28, 70.5, 21, 320)
-
         // Handle the text field’s user input through delegate callbacks.
         nameTextField.delegate = self
         
@@ -193,55 +76,65 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             nameTextField.text = existingMeal.name
             photoImageView.image = existingMeal.photo
             
-            tasteLabel.text = String(Int(meal!.tasteRating * 100)) + "%"
+            tasteLabel.text = String(format: ("%.0f %%"), meal!.tasteRating * 100)
             let tasteToValue : CGFloat = (CGFloat(meal!.tasteRating)) as CGFloat
             initCicle(tasteCircle)
             addCircleView(tasteCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: tasteToValue)
+            tasteLabel.layer.zPosition = 1
             
-            healthLabel.text = String(Int(meal!.healthRating * 100)) + "%"
+            healthLabel.text = String(format: ("%.0f %%"), meal!.healthRating * 100)
             let healthToValue : CGFloat = (CGFloat(meal!.healthRating)) as CGFloat
             initCicle(healthCircle)
             addCircleView(healthCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: healthToValue)
+            healthLabel.layer.zPosition = 1
             
-            fatLabel.text = String(Int(meal!.fatRating * 100)) + "%"
+            fatLabel.text = String(format: ("%.0f %%"), meal!.fatRating * 100)
             let fatToValue : CGFloat = (CGFloat(meal!.fatRating)) as CGFloat
             initCicle(fatCircle)
             addCircleView(fatCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: fatToValue)
+            fatLabel.layer.zPosition = 1
             
-            carbLabel.text = String(Int(meal!.carbRating * 100)) + "%"
+            carbLabel.text = String(format: ("%.0f %%"), meal!.carbRating * 100)
             let carbToValue : CGFloat = (CGFloat(meal!.carbRating)) as CGFloat
             initCicle(carbCircle)
             addCircleView(carbCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: carbToValue)
+            carbLabel.layer.zPosition = 1
             
-            difficultyLabel.text = String(Int(meal!.difficultyRating * 100)) + "%"
+            difficultyLabel.text = String(format: ("%.0f %%"), meal!.difficultyRating * 100)
             let difficultyToValue : CGFloat = (CGFloat(meal!.difficultyRating)) as CGFloat
             initCicle(difficultyCircle)
             addCircleView(difficultyCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: difficultyToValue)
+            difficultyLabel.layer.zPosition = 1
             
-            timeLabel.text = String(Int(meal!.timeRating * 100)) + "%"
+            timeLabel.text = String(format: ("%.0f %%"), meal!.timeRating * 100)
             let timeToValue : CGFloat = (CGFloat(meal!.timeRating)) as CGFloat
             initCicle(timeCircle)
             addCircleView(timeCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: timeToValue)
+            timeLabel.layer.zPosition = 1
             
-            sugarLabel.text = String(Int(meal!.sugarRating * 100)) + "%"
+            sugarLabel.text = String(format: ("%.0f %%"), meal!.sugarRating * 100)
             let sugarToValue : CGFloat = (CGFloat(meal!.sugarRating)) as CGFloat
             initCicle(sugarCircle)
             addCircleView(sugarCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: sugarToValue)
+            sugarLabel.layer.zPosition = 1
             
-            vitaminLabel.text = String(Int(meal!.vitaminRating * 100)) + "%"
+            vitaminLabel.text = String(format: ("%.0f %%"), meal!.vitaminRating * 100)
             let vitaminToValue : CGFloat = (CGFloat(meal!.vitaminRating)) as CGFloat
             initCicle(vitaminCircle)
             addCircleView(vitaminCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: vitaminToValue)
+            vitaminLabel.layer.zPosition = 1
             
-            caloryLabel.text = String(Int(meal!.caloryRating * 100)) + "%"
+            caloryLabel.text = String(format: ("%.0f %%"), meal!.caloryRating * 100)
             let caloryToValue : CGFloat = (CGFloat(meal!.caloryRating)) as CGFloat
             initCicle(caloryCircle)
             addCircleView(caloryCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: caloryToValue)
+            caloryLabel.layer.zPosition = 1
             
-            energyDensityLabel.text = String(Int(meal!.energyDensityRating * 100)) + "%"
+            energyDensityLabel.text = String(format: ("(%.0f %%)"), meal!.energyDensityRating * 100)
             let energyDensityToValue : CGFloat = (CGFloat(meal!.energyDensityRating)) as CGFloat
             initCicle(energyDensityCircle)
             addCircleView(energyDensityCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: energyDensityToValue)
+            energyDensityLabel.layer.zPosition = 1
     
             descriptionTextView.text = existingMeal.cookingDescription
         }
@@ -328,35 +221,16 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         checkValidMealName()
         navigationItem.title = textField.text
     }
-    
-//    // MARK: UIImagePickerControllerDelegate
-//    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-//        // Dismiss the picker if the user canceled.
-//        dismissViewControllerAnimated(true, completion: nil)
-//    }
-//    
-//    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-//        // The info dictionary contains multiple representations of the image, and this uses the original.
-//        let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-//        
-//        // Set photoImageView to display the selected image.
-//        photoImageView.image = selectedImage
-//        
-//        // Dismiss the picker.
-//        dismissViewControllerAnimated(true, completion: nil)
-//    }
-    
+
     // MARK: Navigation
     @IBAction func cancel(sender: UIBarButtonItem) {
         // depending on style of presentation (modal or push), this view
         // controller needs to be dismissed in 2 different ways
         
         let isPresentingInAddMealMode = presentingViewController is UINavigationController
-        
         if isPresentingInAddMealMode {
             dismissViewControllerAnimated(true, completion: nil)
-        }
-        else {
+        } else {
             navigationController!.popViewControllerAnimated(true)
         }
     }
@@ -364,6 +238,21 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     // configure a view controller before it's passed
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if saveButton === sender {
+        }
+        for content in ratingContents {
+            if(segue.identifier == content) {
+                let destinationViewController = segue.destinationViewController as! RatingViewController
+                destinationViewController.ratingContent = content
+                destinationViewController.delegate = self
+                self.currentRatingContent = content
+                setCurrentValue(content)
+                destinationViewController.navigationItem.title = currentTitle
+                destinationViewController.image = self.photoImageView.image
+                destinationViewController.vertiRating = CGFloat(currentVertiRatingValue)
+                destinationViewController.horiRating = CGFloat(currentHoriRatingValue)
+                destinationViewController.horiContent = horiLabel
+                destinationViewController.vertiContent = vertiLabel
+            }
         }
     }
     
@@ -384,6 +273,107 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
 //        presentViewController(imagePickerController, animated: true, completion: nil)
     }
     
+    func setCurrentValue(content: String) {
+        switch content {
+            case "rateTasteHealth":
+                currentVertiRatingValue = meal!.tasteRating
+                currentHoriRatingValue =  meal!.healthRating
+                currentTitle = "Bewerte Geschmack und Gesundheit"
+                vertiLabel = "hoch          Geschmack         niedrig"
+                horiLabel = "niedrig          Gesundheit        hoch"
+            case "rateCaloryEnergy":
+                currentVertiRatingValue = meal!.caloryRating
+                currentHoriRatingValue = meal!.energyDensityRating
+                currentTitle = "Bewerte Kalorien und Energiedichte"
+                vertiLabel = "hoch          Kalorien          niedrig"
+                horiLabel = "niedrig      Energiedichte         hoch"
+            case "rateFatCarb":
+                currentVertiRatingValue = meal!.fatRating
+                currentHoriRatingValue =  meal!.carbRating
+                currentTitle = "Bewerte Fett und Kohlenhydrate"
+                vertiLabel = "hoch          Fett          niedrig"
+                horiLabel = "niedrig      Kohlenhydrate         hoch"
+            case "rateDifficultyTime":
+                currentVertiRatingValue = meal!.difficultyRating
+                currentHoriRatingValue = meal!.timeRating
+                currentTitle = "Bewerte Schwierigkeit und Zeit"
+                vertiLabel = "hoch      Schwierigkeit         niedrig"
+                horiLabel = "niedrig          Zeit            hoch"
+            case "rateSugarVitamin":
+                currentVertiRatingValue = meal!.sugarRating
+                currentHoriRatingValue = meal!.vitaminRating
+                currentTitle = "Bewerte Zucker und Vitamine"
+                vertiLabel = "hoch          Zucker        niedrig"
+                horiLabel = "niedrig          Vitamine          hoch"
+            default: break
+        }
+    }
+    
+    func update() {
+        switch currentRatingContent {
+            case "rateTasteHealth":
+                meal!.tasteRating = currentVertiRatingValue
+                meal!.healthRating = currentHoriRatingValue
+                tasteLabel.text = String(format: ("%.0f %%"), meal!.tasteRating * 100)
+                let tasteToValue : CGFloat = (CGFloat(meal!.tasteRating)) as CGFloat
+                initCicle(tasteCircle)
+                addCircleView(tasteCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: tasteToValue)
+                healthLabel.text = String(format: ("%.0f %%"), meal!.healthRating * 100)
+                let healthToValue : CGFloat = (CGFloat(meal!.healthRating)) as CGFloat
+                initCicle(healthCircle)
+                addCircleView(healthCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: healthToValue)
+            case "rateCaloryEnergy":
+                meal!.caloryRating = currentVertiRatingValue
+                meal!.energyDensityRating = currentHoriRatingValue
+                caloryLabel.text = String(format: ("%.0f %%"), meal!.caloryRating * 100)
+                let caloryToValue : CGFloat = (CGFloat(meal!.caloryRating)) as CGFloat
+                initCicle(caloryCircle)
+                addCircleView(caloryCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: caloryToValue)
+                
+                energyDensityLabel.text = String(format: ("%.0f %%"), meal!.energyDensityRating * 100)
+                let energyDensityToValue : CGFloat = (CGFloat(meal!.energyDensityRating)) as CGFloat
+                initCicle(energyDensityCircle)
+                addCircleView(energyDensityCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: energyDensityToValue)
+            case "rateFatCarb":
+                meal!.fatRating = currentVertiRatingValue
+                meal!.carbRating = currentHoriRatingValue
+                fatLabel.text = String(format: ("%.0f %%"), meal!.fatRating * 100)
+                let fatToValue : CGFloat = (CGFloat(meal!.fatRating)) as CGFloat
+                initCicle(fatCircle)
+                addCircleView(fatCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: fatToValue)
+                
+                carbLabel.text = String(format: ("%.0f %%"), meal!.carbRating * 100)
+                let carbToValue : CGFloat = (CGFloat(meal!.carbRating)) as CGFloat
+                initCicle(carbCircle)
+                addCircleView(carbCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: carbToValue)
+            case "rateDifficultyTime":
+                meal!.difficultyRating = currentVertiRatingValue
+                meal!.timeRating = currentHoriRatingValue
+                difficultyLabel.text = String(format: ("%.0f %%"), meal!.difficultyRating * 100)
+                let difficultyToValue : CGFloat = (CGFloat(meal!.difficultyRating)) as CGFloat
+                initCicle(difficultyCircle)
+                addCircleView(difficultyCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: difficultyToValue)
+                
+                timeLabel.text = String(format: ("%.0f %%"), meal!.timeRating * 100)
+                let timeToValue : CGFloat = (CGFloat(meal!.timeRating)) as CGFloat
+                initCicle(timeCircle)
+                addCircleView(timeCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: timeToValue)
+            case "rateSugarVitamin":
+                meal!.sugarRating = currentVertiRatingValue
+                meal!.vitaminRating = currentHoriRatingValue
+                sugarLabel.text = String(format: ("%.0f %%"), meal!.sugarRating * 100)
+                let sugarToValue : CGFloat = (CGFloat(meal!.sugarRating)) as CGFloat
+                initCicle(sugarCircle)
+                addCircleView(sugarCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: sugarToValue)
+                
+                vitaminLabel.text = String(format: ("%.0f %%"), meal!.vitaminRating * 100)
+                let vitaminToValue : CGFloat = (CGFloat(meal!.vitaminRating)) as CGFloat
+                initCicle(vitaminCircle)
+                addCircleView(vitaminCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: vitaminToValue)
+            default: break
+        }
+    }
+
     func initCicle(myView : UIView) {
         addCircleView(myView, isForeground: false, duration: 0.0, fromValue: 0.0, toValue: 1.0)
     }
@@ -414,5 +404,12 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         
         // Animate the drawing of the circle
         circleView.animateCircleTo(duration, fromValue: fromValue, toValue: toValue)
+    }
+    
+    func didPressSaveButton(vertiRating: CGFloat, horiRating: CGFloat) -> Bool {
+        self.currentVertiRatingValue = Float(vertiRating)
+        self.currentHoriRatingValue = Float(horiRating)
+        update()
+        return true
     }
 }

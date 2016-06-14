@@ -171,7 +171,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         
         navigationController!.navigationBar.tintColor = UIColor.whiteColor()
         navigationController!.navigationBar.titleTextAttributes =
-            ([NSFontAttributeName: UIFont(name: "BradleyHandITCTT-Bold", size: 15)!,
+            ([NSFontAttributeName: UIFont(name: "ChalkboardSE-Bold", size: 15)!,
                 NSForegroundColorAttributeName: UIColor.whiteColor()])
         
         horiLabel = UILabel(frame: CGRectMake(0, 0, 320, 21))
@@ -179,10 +179,10 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         horiLabel.font = UIFont(name: "ChalkboardSE-regular", size: 18)
         horiLabel.textColor = UIColor.darkGrayColor()
         vertiLabel.textColor = UIColor.darkGrayColor()
-        self.contentView.addSubview(horiLabel)
+        self.view.addSubview(horiLabel)
         horiLabel.layer.anchorPoint = CGPointMake(0.0, 0.0)
         horiLabel.transform = CGAffineTransformMakeRotation( CGFloat(M_PI) / 2 )
-        horiLabel.frame = CGRectMake(28, 10.5, 21, 320)
+        horiLabel.frame = CGRectMake(28, 70.5, 21, 320)
 
         // Handle the text field’s user input through delegate callbacks.
         nameTextField.delegate = self
@@ -390,7 +390,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     
     //MARK: Add Circle
     func addCircleView(myView : UIView, isForeground : Bool, duration : NSTimeInterval, fromValue: CGFloat, toValue : CGFloat) {
-        let circleWidth = CGFloat(120)
+        let circleWidth = CGFloat(80)
         let circleHeight = circleWidth
         
         // Create a new CircleView

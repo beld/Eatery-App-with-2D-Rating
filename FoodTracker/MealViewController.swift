@@ -5,7 +5,6 @@ import SCLAlertView
 class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Delegate {
     // MARK: Properties
     
-    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -45,6 +44,14 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     var vertiLabel: String = ""
     var horiLabel: String = ""
     var currentTitle: String = ""
+    var cookingDescription: String = ""
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue", size: 22)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kWindowWidth: CGFloat(300),
+        showCloseButton: true
+    )
     
     @IBAction func addTag(sender: AnyObject) {
         let tag = ["delicious", "healthy", "easy", "unhealthy"]
@@ -58,6 +65,10 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         }
     }
 
+    @IBAction func showRecipe(sender: AnyObject) {
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo(nameTextField.text!, subTitle: cookingDescription, closeButtonTitle: "Bestätigen")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,16 +141,14 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             addCircleView(caloryCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: caloryToValue)
             caloryLabel.layer.zPosition = 1
             
-            energyDensityLabel.text = String(format: ("(%.0f %%)"), meal!.energyDensityRating * 100)
+            energyDensityLabel.text = String(format: ("%.0f %%"), meal!.energyDensityRating * 100)
             let energyDensityToValue : CGFloat = (CGFloat(meal!.energyDensityRating)) as CGFloat
             initCicle(energyDensityCircle)
             addCircleView(energyDensityCircle, isForeground: true, duration: 1.5, fromValue: 0.0,  toValue: energyDensityToValue)
             energyDensityLabel.layer.zPosition = 1
     
-            descriptionTextView.text = existingMeal.cookingDescription
+            cookingDescription = existingMeal.cookingDescription
         }
-        
-        descriptionTextView.sizeToFit()
         
         // enable save button only if text field has valid name
         checkValidMealName()
@@ -151,52 +160,52 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     }
     
     @IBAction func tasteButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Geschmack", subTitle: "Bitte den Geschmack diese Gericht nach Ihren Gunsten bewerten, von 0 bis 100")
+        let tasteAlert = SCLAlertView(appearance: appearance)
+        tasteAlert.showInfo("Geschmack", subTitle: "Bitte den Geschmack diese Gericht nach Ihren Gunsten bewerten, von 0 bis 100", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func healthButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Gesundheit", subTitle: "Wie gesund ist diese Gericht in Ihrer Meinung, von 0 bis 100")
+        let healthAlert = SCLAlertView(appearance: appearance)
+        healthAlert.showInfo("Gesundheit", subTitle: "Wie gesund ist diese Gericht in Ihrer Meinung, von 0 bis 100", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func fatButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Fett", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Fett", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func carbButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Kohlenhydrate", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Kohlenhydrate", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func caloryButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Kalorien", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Kalorien", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func energyDensityButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Energiedichte", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Energiedichte", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func difficultyButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Schwierigkeit", subTitle: "Schwierigkeit misst, wie schwierig, wenn Sie Ihre Gericht vorbereiten")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Schwierigkeit", subTitle: "Schwierigkeit misst, wie schwierig, wenn Sie Ihre Gericht vorbereiten", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func timeButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Zeit", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Zeit", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     
     @IBAction func sugarButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Zucker", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Zucker", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
     @IBAction func vitaminButton(sender: AnyObject) {
-        let alert = SCLAlertView()
-        alert.showInfo("Vitamine", subTitle: "blah blah blah")
+        let alert = SCLAlertView(appearance: appearance)
+        alert.showInfo("Vitamine", subTitle: "blah blah blah", closeButtonTitle: "Bestätigen")
     }
 
     // MARK: UITextFieldDelegate
@@ -310,6 +319,7 @@ class MealViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     }
     
     func update() {
+        navigationItem.title = meal?.name
         switch currentRatingContent {
             case "rateTasteHealth":
                 meal!.tasteRating = currentVertiRatingValue
